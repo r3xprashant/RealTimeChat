@@ -12,12 +12,12 @@ const io = new Server(server, {
     }
 });
 
-// Serve frontend files from the current folder
-app.use(express.static(__dirname));
+// Serve frontend files from the current folder using process.cwd()
+app.use(express.static(process.cwd()));
 
-// Explicitly serve index.html for the root route
+// Explicitly serve index.html for the root route using process.cwd()
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(process.cwd(), 'index.html'));
 });
 
 io.on('connection', (socket) => {
