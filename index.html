@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Chat | Real-Time Messaging</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="header-content">
+                <h2>Stellar Chat</h2>
+                <div class="status-indicator">
+                    <span class="dot pulse"></span>
+                    <span>Server: Port 5500</span>
+                </div>
+            </div>
+            <div class="header-icons">
+                <!-- Placeholder for profile or settings -->
+                <div class="avatar">SC</div>
+            </div>
+        </header>
+        <div class="messages-area" id="messages-container">
+            <ul id="messages">
+                <!-- Messages will appear here dynamically -->
+                <li class="system">🚀 Welcome to Stellar Chat. Start talking!</li>
+            </ul>
+        </div>
+        <div id="typing-indicator" class="typing-indicator"></div>
+
+        <form onsubmit="sendMessage(event)" class="input-area">
+            <input id="input" autocomplete="off" placeholder="Type a message..." />
+            <button id="send-btn" type="submit">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
+                    <path d="M2.01 21L23 12L2.01 3L2 10l15 2l-15 2z"></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <!-- Fix: Using relative path from the Express server -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

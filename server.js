@@ -1,0 +1,62 @@
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+const path = require('path');
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+
+// Serve frontend files from the current folder
+app.use(express.static(__dirname));
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    // Handle chat messages
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
+
+    // Handle typing events
+    socket.on('typing', (user) => {
+        socket.broadcast.emit('typing', user);
+    });
+
+    // Handle stop typing events
+    socket.on('stop typing', () => {
+        socket.broadcast.emit('stop typing');
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
+
+const PORT = 5500;
+const os = require('os');
+
+function getLocalIP() {
+    const interfaces = os.networkInterfaces();
+    for (const name of Object.keys(interfaces)) {
+        for (const iface of interfaces[name]) {
+            if (iface.family === 'IPv4' && !iface.internal) {
+                return iface.address;
+            }
+        }
+    }
+    return '127.0.0.1';
+}
+
+server.listen(PORT, '0.0.0.1' === '0.0.0.1' ? '0.0.0.0' : 'localhost', () => {
+    const ip = getLocalIP();
+    console.log(`\n🚀 Stellar Chat is live!`);
+    console.log(`🏠 Local:   http://localhost:${PORT}`);
+    console.log(`🌐 Network: http://${ip}:${PORT}\n`);
+    console.log(`(Open the Network link in two different devices to chat!)\n`);
+});
