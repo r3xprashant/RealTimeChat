@@ -60,3 +60,4 @@ server.listen(PORT, '0.0.0.1' === '0.0.0.1' ? '0.0.0.0' : 'localhost', () => {
     console.log(`🌐 Network: http://${ip}:${PORT}\n`);
     console.log(`(Open the Network link in two different devices to chat!)\n`);
 });
+module.exports = app;
