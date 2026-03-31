@@ -15,6 +15,11 @@ const io = new Server(server, {
 // Serve frontend files from the current folder
 app.use(express.static(__dirname));
 
+// Explicitly serve index.html for the root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 io.on('connection', (socket) => {
     console.log('A user connected');
 
