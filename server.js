@@ -12,19 +12,26 @@ const io = new Server(server, {
     }
 });
 
-// Serve frontend files from the 'public' folder
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the root directory
+app.use(express.static(__dirname));
+
+// Specifically serve socket.io.js from node_modules for Vercel compatibility
+app.get('/socket.io/socket.io.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'node_modules', 'socket.io', 'client-dist', 'socket.io.js'));
+});
 
 // Explicitly serve index.html for the root route using process.cwd()
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
+    console.log(`\n🟢 User Connected: ${socket.id}`);
+    console.log(`Current active connections: ${io.engine.clientsCount}`);
 
     // Handle chat messages
     socket.on('chat message', (msg) => {
+        console.log(`📩 Message from ${socket.id}: ${msg.text}`);
         io.emit('chat message', msg);
     });
 
@@ -39,7 +46,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('User disconnected');
+        console.log(`\n🔴 User Disconnected: ${socket.id}`);
+        console.log(`Remaining active connections: ${io.engine.clientsCount}`);
     });
 });
 
