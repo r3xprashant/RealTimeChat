@@ -43,7 +43,8 @@
     </div>
 
     <!-- Fix: Using relative path from the Express server -->
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- Using Socket.io CDN for Vercel serverless compatibility -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="script.js"></script>
 </body>
 
