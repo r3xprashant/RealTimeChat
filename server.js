@@ -20,7 +20,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'stellar_secret_key_123';
 
 // Database Connection
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL || process.env.database_url,
     ssl: { rejectUnauthorized: false } // Required for Neon
 });
 
