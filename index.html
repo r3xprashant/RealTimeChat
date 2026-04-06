@@ -10,7 +10,50 @@
 </head>
 
 <body>
-    <div class="chat-container">
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2 id="auth-title">Welcome Back</h2>
+                <p id="auth-subtitle">Login to start chatting</p>
+            </div>
+            <form id="auth-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required placeholder="Enter username">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" id="auth-submit-btn">Login</button>
+            </form>
+            <div class="auth-footer">
+                <p id="auth-toggle-text">Don't have an account? <a href="#" id="auth-toggle">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar for Contacts -->
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <h2>Chats</h2>
+                <div class="user-profile">
+                    <span id="my-username">Me</span>
+                    <button id="logout-btn">Logout</button>
+                </div>
+            </header>
+            <div class="search-bar">
+                <input type="text" id="user-search" placeholder="Search or start new chat">
+            </div>
+            <ul id="user-list" class="user-list">
+                <!-- Users will be populated here -->
+            </ul>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container">
         <header class="chat-header">
             <div class="header-content">
                 <h2>Stellar Chat</h2>
@@ -40,6 +83,7 @@
                 </svg>
             </button>
         </form>
+        </main>
     </div>
 
     <!-- Fix: Using relative path from the Express server -->
